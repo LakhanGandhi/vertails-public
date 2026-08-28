@@ -9,7 +9,7 @@ function Header() {
   return (
     <div className="passport-header">
       <div>
-        <p className="passport-wordmark">FoodCheck</p>
+        <p className="passport-wordmark">Vertails</p>
         <p className="passport-tagline">Digital Product Passport</p>
       </div>
     </div>

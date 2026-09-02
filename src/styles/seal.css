@@ -1,5 +1,5 @@
 .seal {
-  --seal-color: var(--teal);
+  --seal-color: var(--accent);
   width: 60px;
   height: 60px;
   min-width: 60px;
@@ -21,7 +21,7 @@
   border-radius: 50%;
 }
 
-.seal--safe { --seal-color: var(--teal); }
+.seal--safe { --seal-color: var(--accent); }
 .seal--warn { --seal-color: var(--warn-fg); }
 .seal--danger { --seal-color: var(--danger-fg); }
 

@@ -1,9 +1,15 @@
 :root {
-  /* Color */
-  --ink: #1B2A4A;
+  /* Color
+     Retuned to match the Vertails logo mark and admin's accent (same
+     source: #2BA8E2 sky blue -> #1677BC mid blue -> #293F92 indigo navy).
+     --ink barely moved (#1B2A4A was already in the same blue-navy family);
+     --teal is renamed --accent since "teal" no longer describes it, and
+     now carries the logo's mid blue instead of the old green-teal. */
+  --ink: #1B2333;
   --paper: #F3F4F1;
   --card: #FFFFFF;
-  --teal: #0F6B5C;
+  --accent: #1677BC;
+  --accent-hover: #293F92;
   --brass: #B08D57;
   --muted: #5B6472;
   --hairline: #DADDD6;
@@ -41,7 +47,7 @@ html, body {
 }
 
 a {
-  color: var(--teal);
+  color: var(--accent);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -4,13 +4,17 @@ import ProductInfo from './components/ProductInfo.jsx'
 import BatchInfo from './components/BatchInfo.jsx'
 import PlantInfo from './components/PlantInfo.jsx'
 import CompanyInfo from './components/CompanyInfo.jsx'
+import logoMark from './assets/logo-mark.png'
 
 function Header() {
   return (
     <div className="passport-header">
-      <div>
-        <p className="passport-wordmark">Vertails</p>
-        <p className="passport-tagline">Digital Product Passport</p>
+      <div className="passport-wordmark-row">
+        <img src={logoMark} alt="" className="passport-logo-mark" />
+        <div>
+          <p className="passport-wordmark">Vertails</p>
+          <p className="passport-tagline">Digital Product Passport</p>
+        </div>
       </div>
     </div>
   )

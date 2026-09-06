@@ -72,12 +72,16 @@ function App() {
   return (
     <Shell>
       <Header />
-      <StatusBanner recalled={data.batch?.recalled} expiryStatus={data.batch?.expiryStatus} />
+      <StatusBanner
+        recalled={data.batch?.recalled}
+        companySuspended={data.companySuspended}
+        expiryStatus={data.batch?.expiryStatus}
+      />
       <hr className="section-divider" />
       <ProductInfo product={data} />
       <hr className="section-divider" />
       <BatchInfo batch={data.batch} />
-      <PlantInfo plant={data.plant} />
+      <PlantInfo plant={data.plant} plantInactive={data.plantInactive} />
       <CompanyInfo company={data.company} />
     </Shell>
   )

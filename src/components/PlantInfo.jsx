@@ -1,4 +1,4 @@
-function PlantInfo({ plant }) {
+function PlantInfo({ plant, plantInactive }) {
   if (!plant) return null
 
   const addressParts = [plant.address, plant.city, plant.state, plant.country, plant.pinCode].filter(Boolean)
@@ -17,6 +17,12 @@ function PlantInfo({ plant }) {
           <dt>FSSAI License</dt>
           <dd>{plant.fssaiLicense}</dd>
         </dl>
+      )}
+      {plantInactive && (
+        <p className="inactive-note">
+          <span aria-hidden="true">ⓘ</span>
+          <span>Manufacturing plant currently inactive</span>
+        </p>
       )}
     </section>
   )

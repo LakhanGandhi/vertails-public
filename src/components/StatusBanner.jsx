@@ -11,20 +11,31 @@ const SEAL_CLASS = {
 }
 
 /**
- * Recall warning + verification seal. The seal is the page's signature
- * element — it doubles as the expiry-status indicator, color-coded to match.
- * Recall renders separately, above everything, since it's the highest-priority signal.
+ * Recall warning + company-suspended warning + verification seal. The seal
+ * is the page's signature element — it doubles as the expiry-status
+ * indicator, color-coded to match. Recall and company-suspended render
+ * separately, above the seal, in that priority order — see the severity
+ * hierarchy in PROJECT_STATE.md (Known gap #18): recalled > companySuspended
+ * > expired > near_expiry.
  */
-function StatusBanner({ recalled, expiryStatus }) {
+function StatusBanner({ recalled, companySuspended, expiryStatus }) {
   const key = expiryStatus?.key || 'safe'
   const lines = SEAL_TEXT[key] || [expiryStatus?.label || '—']
+  const hasTopBanner = recalled || companySuspended
 
   return (
-    <div className="section" style={{ marginBottom: recalled ? '1.25rem' : '1.75rem' }}>
+    <div className="section" style={{ marginBottom: hasTopBanner ? '1.25rem' : '1.75rem' }}>
       {recalled && (
         <div className="recall-banner" role="alert">
           <span aria-hidden="true">⚠</span>
           <span>This batch has been recalled. Do not consume this product.</span>
+        </div>
+      )}
+
+      {companySuspended && (
+        <div className="suspended-banner" role="alert">
+          <span aria-hidden="true">⚠</span>
+          <span>This company is currently suspended on Vertails.</span>
         </div>
       )}
 

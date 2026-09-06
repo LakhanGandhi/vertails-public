@@ -204,6 +204,56 @@
   margin-bottom: 1rem;
 }
 
+/* Company-suspended banner: same solid, high-contrast treatment as the
+   recall banner (deliberately equally serious in feel) but in --ink rather
+   than --danger-fg, so recall (a food-safety signal) stays visually the
+   single most alarming thing on the page, with suspension a clear step
+   below it - see Known gap #18's severity hierarchy in PROJECT_STATE.md. */
+.suspended-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--ink);
+  color: #fff;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+/* Discontinued banner: informational, not alarming - "no longer made" is a
+   catalog fact, not a problem with this specific unit. Deliberately quieter
+   than recall/suspended/expiry (no solid fill, no white text) but with more
+   visual weight than the plain inactive-note below it, via the brass
+   hairline-colored left border and light background tint. */
+.discontinued-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--paper);
+  color: var(--ink);
+  border-left: 3px solid var(--brass);
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 1.1rem;
+}
+
+/* Inactive note (Plant/Brand): the quietest, lowest-weight signal on the
+   page - a short muted line, no background, no border. Purely informational,
+   never blocking. */
+.inactive-note {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-style: italic;
+  margin: 0.35rem 0 0;
+}
+
 /* Responsive: tighten up on small phone screens */
 @media (max-width: 400px) {
   .passport-page {

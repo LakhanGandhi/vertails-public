@@ -11,16 +11,31 @@ function ProductInfo({ product }) {
     nutritionPer100g,
     allergens = [],
     certifications = [],
+    brandInactive,
+    productDiscontinued,
   } = product
 
   const imageList = Object.values(images || {}).filter(Boolean)
 
   return (
     <section className="section">
+      {productDiscontinued && (
+        <div className="discontinued-banner">
+          <span aria-hidden="true">ⓘ</span>
+          <span>This product has been discontinued and is no longer manufactured.</span>
+        </div>
+      )}
+
       <p className="product-name">{name}</p>
       {brand && (
         <p className="product-subline">
           {brand}{category ? ` · ${category}` : ''}
+        </p>
+      )}
+      {brandInactive && (
+        <p className="inactive-note">
+          <span aria-hidden="true">ⓘ</span>
+          <span>Brand currently inactive</span>
         </p>
       )}
 

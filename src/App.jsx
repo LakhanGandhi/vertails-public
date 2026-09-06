@@ -59,6 +59,15 @@ function App() {
     )
   }
 
+  if (status === 'company_unavailable') {
+    return (
+      <Shell>
+        <Header />
+        <p>This product is no longer available. The company associated with this product does not currently exist on Vertails.</p>
+      </Shell>
+    )
+  }
+
   if (status === 'error') {
     return (
       <Shell>

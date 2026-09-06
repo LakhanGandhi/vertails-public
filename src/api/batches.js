@@ -19,15 +19,21 @@ export async function fetchPublicBatch(batchId) {
   }
 
   if (!response.ok) {
-    const message = body?.error || `Request failed with status ${response.status}`
+    const message = body?.error?.message || `Request failed with status ${response.status}`
     const error = new Error(message)
     error.status = response.status
+    // P0-3: the machine-readable error code (e.g. "COMPANY_UNAVAILABLE")
+    // lets useBatchLookup distinguish a retired/archived company's product
+    // from a plain invalid/nonexistent batch ID, without this file (or the
+    // hook) knowing anything about internal company statuses itself.
+    error.code = body?.error?.code
     throw error
   }
 
   if (!body?.success) {
-    const error = new Error(body?.error || 'Unexpected response shape')
+    const error = new Error(body?.error?.message || 'Unexpected response shape')
     error.status = response.status
+    error.code = body?.error?.code
     throw error
   }
 

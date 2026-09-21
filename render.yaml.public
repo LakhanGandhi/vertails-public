@@ -1,0 +1,59 @@
+# H-01: Static frontend production security headers (Public)
+#
+# NOTE FOR WHOEVER APPLIES THIS BLUEPRINT:
+# `name:` below has been confirmed against the Render dashboard as the
+# existing live service name for the site at https://vertails.com.
+# It must continue to match that dashboard name exactly, or syncing
+# this Blueprint will create a brand-new service instead of updating
+# the one already live.
+#
+# This repo currently has no render.yaml, so this service was almost
+# certainly created by connecting the repo directly in the dashboard,
+# not via a Blueprint. The FIRST sync of this file must be done
+# deliberately and reviewed in Render's diff preview before applying,
+# specifically to confirm it attaches to the existing service rather
+# than creating a duplicate.
+#
+# NO SPA rewrite is included here. Unlike Admin, this app has no
+# client-side path routes at all (confirmed by reading src/App.jsx and
+# src/main.jsx: BrowserRouter is only present so useSearchParams() can
+# read the `?id=` query string on the single root route "/" - there are
+# no <Route> definitions). A request like https://vertails.com/?id=BAT_x
+# already resolves to the existing index.html at the root path without
+# any rewrite, so adding one would be an unrelated routing change with
+# no functional purpose. If client-side routes are ever added to this
+# app, a rewrite block matching Admin's should be added at that time.
+
+services:
+  - type: web
+    runtime: static
+    name: vertails-public
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+
+    headers:
+      - path: /*
+        name: Strict-Transport-Security
+        value: "max-age=31536000; includeSubDomains"
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: "camera=(), microphone=(), geolocation=()"
+      - path: /*
+        name: Content-Security-Policy
+        # img-src is intentionally broader than Admin's: ProductInfo.jsx
+        # (src/components/ProductInfo.jsx) renders <img src={...}> directly
+        # from arbitrary URL strings returned by the public batch API's
+        # `images` object, with no allowlist or single-host constraint
+        # anywhere in this repo's code. Restricting img-src to 'self'
+        # would silently break product photos on every scanned batch
+        # whose images live on whatever host they were uploaded to.
+        value: "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self' https://api.vertails.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"

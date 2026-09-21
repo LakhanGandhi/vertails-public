@@ -28,7 +28,7 @@ services:
   - type: web
     runtime: static
     name: vertails-public
-    buildCommand: npm ci && npm run build
+    buildCommand: yarn install; yarn build
     staticPublishPath: dist
 
     headers:
